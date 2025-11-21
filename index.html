@@ -668,12 +668,14 @@
 
         faders.forEach(fader => {
             appearOnScroll.observe(fader);
+
         });
 
     </script>
     <script type="module">
-  import { inject } from 'https://cdn.skypack.dev/@vercel/analytics';
-  inject();
+import { Analytics } from '@vercel/analytics/react';
+
 </script>
+
 </body>
 </html>
