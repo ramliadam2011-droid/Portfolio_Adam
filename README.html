@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Adam Ramli </title>
+    <!-- Google Fonts pour une typographie plus jolie -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ===================================
+           VARIABLES PERSONNALISABLES
+           =================================== */
+        :root {
+            --couleur-principale: #667eea; /* Indigo */
+            --couleur-secondaire: #764ba2; /* Violet */
+            --couleur-texte: #333;
+            --couleur-fond: #f4f7f6;
+            --couleur-blanc: #ffffff;
+            --police-titre: 'Poppins', sans-serif;
+            --police-texte: 'Roboto', sans-serif;
+        }
+
+        /* ===================================
+           STYLE DE BASE ET RÉINITIALISATION
+           =================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--police-texte);
+            background-color: var(--couleur-fond);
+            color: var(--couleur-texte);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2 {
+            font-family: var(--police-titre);
+            font-weight: 700;
+            color: var(--couleur-principale);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--couleur-principale), var(--couleur-secondaire));
+            border-radius: 2px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* ===================================
+           HEADER & NAVIGATION
+           =================================== */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--police-titre);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--couleur-principale);
+            text-decoration: none;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--couleur-texte);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(to right, var(--couleur-principale), var(--couleur-secondaire));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--couleur-principale);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Menu Hamburger (caché par défaut) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--couleur-principale);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* ===================================
+           SECTION ACCUEIL (HERO)
+           =================================== */
+        #accueil {
+            margin-top: 70px; /* Espace pour le header fixe */
+            background: linear-gradient(135deg, var(--couleur-principale), var(--couleur-secondaire));
+            color: var(--couleur-blanc);
+            text-align: center;
+            padding: 120px 0;
+            border-radius: 0 0 50px 50px;
+        }
+
+        #accueil h1 {
+            font-size: 3.5rem;
+            color: var(--couleur-blanc);
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        #accueil p {
+            font-size: 1.2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: var(--couleur-blanc);
+            color: var(--couleur-principale);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* ===================================
+           SECTION À PROPOS
+           =================================== */
+        #a-propos .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-img {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* MODIFICATION ICI : Ancien style du placeholder supprimé et remplacé par le style de la photo */
+        .profile-pic {
+            width: 250px; /* Largeur de l'image */
+            height: 250px; /* Hauteur de l'image pour un cercle parfait */
+            border-radius: 50%; /* Rend l'image parfaitement ronde */
+            object-fit: cover; /* S'assure que l'image remplisse le cercle sans se déformer */
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Ombre pour un effet de profondeur */
+        }
+
+
+        /* ===================================
+           SECTION PROJETS
+           =================================== */
+        #projets {
+            background: var(--couleur-blanc);
+        }
+        
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--couleur-principale);
+            color: var(--couleur-principale);
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(to right, var(--couleur-principale), var(--couleur-secondaire));
+            color: var(--couleur-blanc);
+            border-color: transparent;
+        }
+
+        .projets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .projet-card {
+            background: var(--couleur-fond);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .projet-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        /* MODIFICATION ICI : Ancien style du placeholder remplacé par le style pour les vraies images */
+        .projet-img {
+            width: 100%; /* L'image prend toute la largeur de la carte */
+            height: 200px; /* Hauteur fixe pour toutes les images */
+            object-fit: cover; /* L'image couvre l'espace sans se déformer (comme un crop) */
+            display: block; /* Évite un petit espace en bas de l'image */
+        }
+
+        .projet-info {
+            padding: 20px;
+        }
+
+        .projet-info h3 {
+            font-family: var(--police-titre);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .projet-info p {
+            color: #666;
+        }
+
+        /* ===================================
+           SECTION COMPÉTENCES
+           =================================== */
+        .competences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .competence-card {
+            background: var(--couleur-blanc);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .competence-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .competence-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .competence-card h3 {
+            font-family: var(--police-titre);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .competence-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* ===================================
+           SECTION CONTACT
+           =================================== */
+        #contact {
+            background: linear-gradient(135deg, var(--couleur-principale), var(--couleur-secondaire));
+            color: var(--couleur-blanc);
+            text-align: center;
+            border-radius: 50px 50px 0 0;
+        }
+
+        #contact h2 {
+            color: var(--couleur-blanc);
+        }
+
+        #contact h2::after {
+            background: var(--couleur-blanc);
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-info a {
+            color: var(--couleur-blanc);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            opacity: 0.8;
+        }
+
+        /* ===================================
+           FOOTER
+           =================================== */
+        footer {
+            background: #333;
+            color: #aaa;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        /* ===================================
+           ANIMATIONS
+           =================================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===================================
+           RESPONSIVE DESIGN
+           =================================== */
+        @media (max-width: 768px) {
+            .nav-list {
+                position: fixed;
+                top: 70px;
+                right: -100%; /* Caché par défaut */
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--couleur-blanc);
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
+                padding-top: 50px;
+                transition: right 0.4s ease;
+            }
+
+            .nav-list.active {
+                right: 0; /* Visible */
+            }
+
+            .hamburger {
+                display: flex;
+            }
+            
+            #accueil h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+
+            #a-propos .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===================================
+         HEADER & NAVIGATION
+         =================================== -->
+    <header class="header">
+        <div class="container">
+            <a href="#accueil" class="logo">R.Adam</a>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="#accueil" class="nav-link">Accueil</a></li>
+                    <li><a href="#a-propos" class="nav-link">À Propos</a></li>
+                    <li><a href="#projets" class="nav-link">Projets</a></li>
+                    <li><a href="#competences" class="nav-link">Compétences</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===================================
+             SECTION ACCUEIL (HERO)
+             =================================== -->
+        <section id="accueil">
+            <div class="container">
+                <h1>Adam Ramli</h1>
+                <p>Élève de 3ème | Créatif & Passionné de Tech</p>
+                <a href="#projets" class="btn-primary">Découvrir mes projets</a>
+            </div>
+        </section>
+
+        <!-- ===================================
+             SECTION À PROPOS
+             =================================== -->
+        <section id="a-propos" class="fade-in">
+            <div class="container">
+                <h2>À Propos de Moi</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Bonjour et bienvenue sur mon portfolio ! Je suis Adam, un élève de 3ème année collège curieux de tout et passionné par la création sous toutes ses formes. Que ce soit coder une page web, lire ou monter une vidéo, j'adore donner vie à mes idées.</p>
+                        <p>Ce site a été créé pour vous présenter quelques-unes de mes réalisations et des compétences que j'ai pu développer. N'hésitez pas à regarder autour de vous !</p>
+                    </div>
+                    <div class="about-img">
+                        <!-- MODIFICATION ICI : Ajout de la photo de profil -->
+                        <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsK%0ACwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQU%0AFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAE6APUDASIA%0AAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA%0AAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3%0AODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm%0Ap6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA%0AAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx%0ABhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK%0AU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3%0AuLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwCNwcet%0AV23LnbVwhm6AAU0qM89a9aWmx5C3uZctxIucjpVBrq7kfK5A7VsXEO5sVXZDjpisGubU6FbcitpJ%0AtuZT81TcHndzUEj7Wo3Njim9hxd2Q3GNxzWbLAJDyK0JixJyKpyZC56VkVEgWJI2xmiVflx0NN/j%0AzSPJuJJ6VFjQrTJs6msjVNYtdPVmllUAe/NVfEXiUWW+OIguvrXl2taob9mMjkH6047j5TsL34lW%0A1uxW3+dvXFYV58UrgZ3RjA9q4C8uBDnByax5tTbow60SbK5Uekn4rSeYuI8DvgV6j8J/2gNI0G+K%0A3ztEJTjcc4FfLxuC445NIsjAjB6HIrlqQjVjyyLiuU/Ujwd4+0jxRZiexvYph0+VwT+VdVHMGbg7%0A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" alt="Photo de profil de Ramli" class="profile-pic">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================
+             SECTION PROJETS
+           =================================== -->
+        <section id="projets" class="fade-in">
+            <div class="container">
+                <h2>Mes Projets</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Tous</button>
+                    <button class="filter-btn" data-filter="web">Web</button>
+                    <button class="filter-btn" data-filter="Robotique">Robotique</button>
+                    <button class="filter-btn" data-filter="Programmmation">Programmation</button>
+                </div>
+                <div class="projets-grid">
+                    <!-- Carte Projet 1 -->
+                    <div class="projet-card" data-category="web">
+                        <!-- MODIFICATION ICI : Ajout d'une vraie image -->
+                        <img src="https://www.capconnect.com/blog/wp-content/uploads/2020/05/creation-site-web-maroc.png" alt="Capture d'écran du site du CDI" class="projet-img">
+                        <div class="projet-info">
+                            <h3>Site du CDI</h3>
+                            <p>Création d'un site web en HTML/CSS pour présenter les nouveautés du centre de documentation du collège.</p>
+                        </div>
+                    </div>
+                    <!-- Carte Projet 2 -->
+                    <div class="projet-card" data-category="Robotique">
+                        <!-- MODIFICATION ICI : Ajout d'une vraie image -->
+                        <img src="https://static.vecteezy.com/ti/vecteur-libre/p1/46345300-homme-jeter-papier-dans-poubelle-poubelle-vectoriel.jpg" alt="Photo de la poubelle intelligente" class="projet-img">
+                        <div class="projet-info">
+                            <h3>Poubelle Intelligente</h3>
+                            <p>Avec mes amis, nous avons travaillé ensemble pour créer une poubelle intelligente équipée d’un détecteur de mouvement.</p>
+                            <p>L’objectif de ce projet était de faciliter l’ouverture de la poubelle sans avoir à la toucher, afin d’améliorer l’hygiène et de rendre son utilisation plus pratique.</p>
+                        </div>
+                    </div>
+                    <!-- Carte Projet 3 -->
+                    <div class="projet-card" data-category="Programmmation">
+                        <!-- MODIFICATION ICI : Ajout d'une vraie image -->
+                        <img src="https://www.devacetech.com/wp-content/uploads/2025/05/python-chatbot.webp" alt="Capture d'écran du code du chatbot" class="projet-img">
+                        <div class="projet-info">
+                            <h3>Chatbot Python</h3>
+                            <p>J’ai développé un petit chatbot en Python capable de répondre à différentes questions posées par l’utilisateur.</p>
+                            <p>L’objectif de ce projet était de découvrir comment fonctionnent les programmes interactifs et de comprendre les bases de l’intelligence artificielle.</p>
+                        </div>
+                    </div>
+                    <!-- Carte Projet 4 -->
+                    <div class="projet-card" data-category="web">
+                        <!-- MODIFICATION ICI : Ajout d'une vraie image -->
+                        <img src="https://wiztoonz.com/wp-content/uploads/2022/04/Blog-Post-Portfolio-1170x658.jpg" alt="Mockup du design du portfolio" class="projet-img">
+                        <div class="projet-info">
+                            <h3>Portfolio Personnel</h3>
+                            <p>Le site que vous consultez ! Un défi pour apprendre le HTML, CSS et un peu de JavaScript.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================
+             SECTION COMPÉTENCES
+           =================================== -->
+        <section id="competences" class="fade-in">
+            <div class="container">
+                <h2>Mes Compétences</h2>
+                <div class="competences-grid">
+                    <div class="competence-card">
+                        <div class="competence-icon">📖</div>
+                        <h3>Lecture</h3>
+                        <p>J’aime beaucoup lire des romans, car cela me permet de voyager, de découvrir de nouvelles histoires et d’enrichir mon imagination. La lecture m’aide aussi à améliorer mon vocabulaire, ma compréhension de texte et ma manière d’écrire.</p>
+                    </div>
+                    <div class="competence-card">
+                        <div class="competence-icon">💻</div>
+                        <h3>Développement Web</h3>
+                        <p>Notions de base en HTML et CSS pour créer des pages web simples et modernes.</p>
+                    </div>
+                    <div class="competence-card">
+                        <div class="competence-icon">🐍</div>
+                        <h3>Programmation</h3>
+                        <p>Débutant en Python, capable de créer des scripts simples et des petits projets.</p>
+                    </div>
+                    <div class="competence-card">
+                        <div class="competence-icon">🤝</div>
+                        <h3>Travail d'équipe</h3>
+                        <p>J'aime collaborer sur des projets, écouter les idées des autres et trouver des solutions ensemble.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================
+             SECTION CONTACT
+           =================================== -->
+        <section id="contact">
+            <div class="container">
+                <h2>Contact</h2>
+                <div class="contact-info">
+                    <p>Vous avez un projet en tête ou juste une question ?</p>
+                    <p>N'hésitez pas à m'envoyer un email !</p>
+                    <p><a href="mailto:ramliadam2011@gmail.com">✉️ ramliadam2011@gmail.com  </a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===================================
+         FOOTER
+         =================================== -->
+    <footer>
+        <p>&copy; 2025 - Portfolio d'Adam Ramli. Fait avec ❤️ et beaucoup de CSS.</p>
+    </footer>
+
+    <!-- ===================================
+         JAVASCRIPT
+         =================================== -->
+    <script>
+        // Menu Hamburger pour Mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navList = document.querySelector('.nav-list');
+
+        hamburger.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        // Fermer le menu en cliquant sur un lien
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+            });
+        });
+
+        // Filtre pour les projets
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projetCards = document.querySelectorAll('.projet-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 1. Mettre à jour le bouton actif
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // 2. Filtrer les cartes
+                const filter = button.getAttribute('data-filter');
+                projetCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Animation au défilement (Fade In)
+        const faders = document.querySelectorAll('.fade-in');
+
+        const appearOptions = {
+            threshold: 0.2,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('visible');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+
+    </script>
+</body>
+</html>
